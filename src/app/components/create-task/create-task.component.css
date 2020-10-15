@@ -1,0 +1,10 @@
+.center {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  align-items: center;
+}
+.inputs {
+  margin: auto;
+  width: 50%;
+}
