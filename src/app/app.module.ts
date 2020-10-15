@@ -12,13 +12,16 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {MatCardModule} from "@angular/material/card";
 import { CreateTaskComponent } from './components/create-task/create-task.component';
+import {MatTableModule} from "@angular/material/table";
+import { ListTaskComponent } from './components/list-task/list-task.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     AboutComponent,
-    CreateTaskComponent
+    CreateTaskComponent,
+    ListTaskComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,8 @@ import { CreateTaskComponent } from './components/create-task/create-task.compon
     MatIconModule,
     MatButtonModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
