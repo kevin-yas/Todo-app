@@ -5,13 +5,19 @@
       <section class="inputs">
         <mat-form-field>
           <mat-label>Title</mat-label>
-          <input matInput required>
+          <input *ngIf="!toEdit; else toEditHere" matInput required [(ngModel)]="formTask.title">
+          <ng-template #toEditHere>
+            <input matInput required [(ngModel)]="toEdit.title">
+          </ng-template>
         </mat-form-field>
         <mat-form-field style="margin-left: 5px;">
           <mat-label>Description</mat-label>
-          <textarea matInput></textarea>
+          <textarea *ngIf="!toEdit; else toEditDesc" matInput [(ngModel)]="formTask.description"></textarea>
+          <ng-template #toEditDesc>
+            <input matInput required [(ngModel)]="toEdit.description">
+          </ng-template>
         </mat-form-field>
-        <button style="margin-left: 20px;" mat-raised-button color="primary">Submit</button>
+        <button (click)="addHandler()" style="margin-left: 20px;" mat-raised-button color="primary">Submit</button>
       </section>
     </mat-card-content>
   </mat-card>

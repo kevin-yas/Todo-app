@@ -14,6 +14,9 @@ import {MatCardModule} from "@angular/material/card";
 import { CreateTaskComponent } from './components/create-task/create-task.component';
 import {MatTableModule} from "@angular/material/table";
 import { ListTaskComponent } from './components/list-task/list-task.component';
+import {FormsModule} from "@angular/forms";
+import { DetailsTaskComponent } from './dialog/details-task/details-task.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -21,18 +24,21 @@ import { ListTaskComponent } from './components/list-task/list-task.component';
     HomeComponent,
     AboutComponent,
     CreateTaskComponent,
-    ListTaskComponent
+    ListTaskComponent,
+    DetailsTaskComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
     MatInputModule,
     MatCardModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
