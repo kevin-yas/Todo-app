@@ -3,6 +3,7 @@ import {Task} from "../../models/Task";
 import {MatDialog} from "@angular/material/dialog";
 import {DetailsTaskComponent} from "../../dialog/details-task/details-task.component";
 import * as moment from 'moment';
+import {AlertRemoveComponent} from '../../dialog/alert-remove/alert-remove.component';
 
 @ Component({
   selector: 'app-list-task',
@@ -13,7 +14,7 @@ export class ListTaskComponent implements OnInit {
   @Input() tasks: Task[] = [];
   @Output() doneEvent: EventEmitter<Task> = new EventEmitter<Task>();
   @Output() editEvent: EventEmitter<Task> = new EventEmitter<Task>();
-  @Output() deleteEvent: EventEmitter<number> = new EventEmitter<number>();
+  @Output() deleteEvent: EventEmitter<Task> = new EventEmitter<Task>();
   readonly moment = moment;
   displayedColumns: string[] = ['id', 'title', 'isDone', 'createdAt', 'doneAt', 'actions'];
 
@@ -29,8 +30,13 @@ export class ListTaskComponent implements OnInit {
     this.doneEvent.emit(task);
   }
 
-  remove(id: number) {
-    this.deleteEvent.emit(id);
+  remove(task: Task) {
+    const sub = this.dialog.open(AlertRemoveComponent, {data: task})
+      .afterClosed().subscribe(confirm => {
+        if (confirm) {
+          this.deleteEvent.emit(task);
+        }
+      }).add(() => sub.unsubscribe());
   }
 
   edit(task: Task) {

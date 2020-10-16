@@ -19,6 +19,7 @@ import { DetailsTaskComponent } from './dialog/details-task/details-task.compone
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatMenuModule} from "@angular/material/menu";
+import { AlertRemoveComponent } from './dialog/alert-remove/alert-remove.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {MatMenuModule} from "@angular/material/menu";
     AboutComponent,
     CreateTaskComponent,
     ListTaskComponent,
-    DetailsTaskComponent
+    DetailsTaskComponent,
+    AlertRemoveComponent
   ],
   imports: [
     BrowserModule,
