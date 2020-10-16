@@ -3,19 +3,15 @@
     <mat-card-title style="text-align: center">My tasks</mat-card-title>
     <mat-card-content class="center">
       <section class="inputs">
-        <mat-form-field>
+        <mat-form-field hintLabel="Max 50 characters">
           <mat-label>Title</mat-label>
-          <input *ngIf="!toEdit; else toEditHere" matInput required [(ngModel)]="formTask.title">
-          <ng-template #toEditHere>
-            <input matInput required [(ngModel)]="toEdit.title">
-          </ng-template>
+          <input #input maxlength="50" placeholder="eg. Clean house" matInput required [ngModel]="toEdit?.title || formTask.title" (ngModelChange)="toEdit ? toEdit.title = $event : formTask.title = $event">
+          <mat-hint align="end" >{{input.value?.length || 0}}/50</mat-hint>
         </mat-form-field>
         <mat-form-field style="margin-left: 5px;">
           <mat-label>Description</mat-label>
-          <textarea *ngIf="!toEdit; else toEditDesc" matInput [(ngModel)]="formTask.description"></textarea>
-          <ng-template #toEditDesc>
-            <input matInput required [(ngModel)]="toEdit.description">
-          </ng-template>
+          <textarea #textarea matInput [ngModel]="toEdit?.description || formTask.description" (ngModelChange)="toEdit ? toEdit.description = $event : formTask.description = $event" ></textarea>
+          <mat-hint align="end" >{{textarea.value?.length || 0}}</mat-hint>
         </mat-form-field>
         <button (click)="addHandler()" style="margin-left: 20px;" mat-raised-button color="primary">Submit</button>
       </section>

@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Task} from "../../models/Task";
 import {MatDialog} from "@angular/material/dialog";
 import {DetailsTaskComponent} from "../../dialog/details-task/details-task.component";
+import * as moment from 'moment';
 
 @ Component({
   selector: 'app-list-task',
@@ -13,6 +14,7 @@ export class ListTaskComponent implements OnInit {
   @Output() doneEvent: EventEmitter<Task> = new EventEmitter<Task>();
   @Output() editEvent: EventEmitter<Task> = new EventEmitter<Task>();
   @Output() deleteEvent: EventEmitter<number> = new EventEmitter<number>();
+  readonly moment = moment;
   displayedColumns: string[] = ['id', 'title', 'isDone', 'createdAt', 'doneAt', 'actions'];
 
   constructor(public dialog: MatDialog) {
