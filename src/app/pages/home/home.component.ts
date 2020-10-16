@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Task} from "../../models/Task";
-
+import * as moment from 'moment';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -18,8 +18,8 @@ export class HomeComponent implements OnInit {
       this.allTask.push({
           id: i,
           description: '',
-          createdAt: new Date(),
-          doneAt: i % 2 === 0 ? new Date() : null,
+          createdAt: moment().subtract(i * 2, 'days').startOf('day').toDate(),
+          doneAt: i % 2 === 0 ? moment().subtract(i, 'days').startOf('day').toDate() : null,
           title: 'Angular ' + i * 2,
           isDone: i % 2 === 0
         },
