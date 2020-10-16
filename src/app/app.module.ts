@@ -17,6 +17,7 @@ import { ListTaskComponent } from './components/list-task/list-task.component';
 import {FormsModule} from "@angular/forms";
 import { DetailsTaskComponent } from './dialog/details-task/details-task.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {MatDialogModule} from "@angular/material/dialog";
     MatInputModule,
     MatCardModule,
     MatTableModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

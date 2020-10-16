@@ -29,10 +29,10 @@
     <th mat-header-cell *matHeaderCellDef> Done at</th>
     <td mat-cell *matCellDef="let task">
     <span *ngIf="task.isDone; else notDoneAt">
-       {{task.doneAt | date: 'dd/MM/yyyy - hh:mm:ss'}}
+      <mat-icon  style="vertical-align: middle; cursor: pointer;" matTooltip="{{task.doneAt | date: 'dd/MM/yyyy - hh:mm:ss'}}">schedule</mat-icon>
     </span>
       <ng-template #notDoneAt>
-        Not already done
+      <mat-icon  style="vertical-align: middle;">cancel</mat-icon>
       </ng-template>
     </td>
   </ng-container>
