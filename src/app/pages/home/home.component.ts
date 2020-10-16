@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
           description: '',
           createdAt: new Date(),
           doneAt: i % 2 === 0 ? new Date() : null,
-          title: 'Mikaka ' + i * 2,
+          title: 'Angular ' + i * 2,
           isDone: i % 2 === 0
         },
       );
