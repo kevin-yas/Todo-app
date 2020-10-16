@@ -17,13 +17,11 @@ export class CreateTaskComponent implements OnInit {
   }
 
   addHandler() {
-    console.log(this.toEdit, this.formTask);
     if (this.toEdit) {
       this.editEvent.emit(this.toEdit);
       this.toEdit = null;
       return;
     }
-    console.log(this.formTask);
     this.addEvent.emit(this.formTask);
     this.formTask = {...Task.EMPTY_MODEL};
   }
