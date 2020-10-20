@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Task} from "../../models/Task";
-import {MatDialog} from "@angular/material/dialog";
-import {DetailsTaskComponent} from "../../dialog/details-task/details-task.component";
+import {Task} from '../../models/Task';
+import {MatDialog} from '@angular/material/dialog';
+import {DetailsTaskComponent} from '../../dialog/details-task/details-task.component';
 import * as moment from 'moment';
 import {AlertRemoveComponent} from '../../dialog/alert-remove/alert-remove.component';
 
@@ -24,9 +24,8 @@ export class ListTaskComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
   done(task: Task) {
-    if (task.isDone) return;
+    if (task.isDone) { return; }
     this.doneEvent.emit(task);
   }
 
