@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Task} from "../../models/Task";
-import * as moment from 'moment';
+import {Task} from '../../models/Task';
+import {TodoService} from '../../services/todo.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -10,48 +11,61 @@ export class HomeComponent implements OnInit {
   allTask: Array<Task> = [];
   editMe: Task;
 
-  constructor() {
+  constructor(private todoService: TodoService) {
   }
 
   ngOnInit(): void {
-    for (let i = 1; i < 5; i++) {
-      this.allTask.push({
-          id: i,
-          description: '',
-          createdAt: moment().subtract(i * 2, 'days').startOf('day').toDate(),
-          doneAt: i % 2 === 0 ? moment().subtract(i, 'days').startOf('day').toDate() : null,
-          title: 'Angular ' + i * 2,
-          isDone: i % 2 === 0
-        },
-      );
-    }
     // Recuperation des tasks depuis la base de donnee
     // Mettre les donnees dans allTask
+    this.todoService.getTasks().subscribe(
+      response => {
+        console.log(response);
+        this.allTask = response;
+      },
+      error => {
+        console.log('Get all tasks error: ', error);
+      });
   }
 
-  onAdd(newTask: Task) {
-    this.allTask.push({...newTask, id: this.allTask.length + 1, createdAt: new Date()});
-    this.allTask = this.allTask.filter(x => true);
+  onAdd(newTask: Task): void {
+    this.todoService.addTask(newTask).subscribe(
+      response => {
+        console.log(response);
+        this.allTask.push({...newTask, id: response.id, createdAt: new Date()});
+        this.allTask = this.allTask.filter(x => true);
+      }
+    );
   }
 
-  onDone(taskToBeDone: Task) {
-    const task = this.allTask.find(task => task.id === taskToBeDone.id);
-    task.isDone = true;
-    task.doneAt = new Date();
+  onDone(taskToBeDone: Task): void {
+    console.log(taskToBeDone);
+    this.todoService.doneTask(taskToBeDone.id).subscribe(
+      response => {
+        taskToBeDone.isDone = true;
+        taskToBeDone.doneAt = new Date();
+        console.log(taskToBeDone);
+      }
+    );
   }
 
-  onDelete(id: number) {
-    this.allTask = this.allTask.filter(task => task.id !== id);
+
+  onEdit(taskToEdit: Task): void {
+        this.editMe = {...taskToEdit};
   }
 
-  onEdit(taskToEdit: Task) {
-    this.editMe = {...taskToEdit};
+  onDelete(id: number): void {
+    this.todoService.removeTask(id).subscribe(
+      response => {
+        this.allTask = this.allTask.filter(task => task.id !== id);
+      }
+    );
   }
 
-  handleEdit(editedTask: Task) {
-    const task = this.allTask.find(task => task.id === editedTask.id);
-    task.description = editedTask.description;
-    task.title = editedTask.title;
+  handleEdit(editedTask: Task): void {
+    const taskFound = this.allTask.find(task => task.id === editedTask.id);
+    taskFound.title = editedTask.title;
+    taskFound.description = editedTask.description;
+    this.todoService.editTask(editedTask).subscribe();
   }
 
 }
