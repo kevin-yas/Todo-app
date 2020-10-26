@@ -3,3 +3,6 @@ table {
   width: 70%;
   margin: auto;
 }
+th.mat-sort-header-sorted {
+  color: black;
+}
