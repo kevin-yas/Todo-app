@@ -1,5 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Task} from '../../models/Task';
+import {MatDialog} from '@angular/material/dialog';
+import {AlertRemoveAllComponent} from '../../dialog/alert-remove-all/alert-remove-all.component';
+
+
 
 @Component({
   selector: 'app-create-task',
@@ -10,8 +14,12 @@ export class CreateTaskComponent implements OnInit {
   formTask = {...Task.EMPTY_MODEL};
   @Output() addEvent: EventEmitter<Task> = new EventEmitter<Task>();
   @Output() editEvent: EventEmitter<Task> = new EventEmitter<Task>();
+  @Output() deleteEvent: EventEmitter<Task> = new EventEmitter<Task>();
+
   @Input() toEdit: Task;
-  constructor() { }
+  @Input() selectedTask: Task;
+  constructor(public dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
   }

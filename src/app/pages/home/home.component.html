@@ -1,9 +1,12 @@
 <app-create-task (addEvent)="onAdd($event)" 
 (editEvent)="handleEdit($event)" 
-[toEdit]="editMe"></app-create-task>
+[toEdit]="editMe"
+[selectedTask]="selectedTaskIn"
+></app-create-task>
 <app-list-task
 *ngIf="allTask.length"
 [tasks]="allTask" 
 (doneEvent)="onDone($event)" 
 (deleteEvent)="onDelete($event.id)" 
-(editEvent)="onEdit($event)"></app-list-task>
+(editEvent)="onEdit($event)"
+(selectTask)="onEvent($event)"></app-list-task>

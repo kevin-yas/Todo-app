@@ -23,6 +23,7 @@ import { AlertRemoveComponent } from './dialog/alert-remove/alert-remove.compone
 import {HttpClientModule} from '@angular/common/http';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { AlertRemoveAllComponent } from './dialog/alert-remove-all/alert-remove-all.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     CreateTaskComponent,
     ListTaskComponent,
     DetailsTaskComponent,
-    AlertRemoveComponent
+    AlertRemoveComponent,
+    AlertRemoveAllComponent
   ],
   imports: [
     BrowserModule,

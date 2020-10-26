@@ -12,7 +12,7 @@ export class AlertRemoveComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AlertRemoveComponent>,
     @Inject(MAT_DIALOG_DATA) public task: Task
-  ) { }
+) { }
 
   ngOnInit(): void {
   }

@@ -22,11 +22,13 @@ export class ListTaskComponent implements OnInit,AfterViewInit {
   @Output() doneEvent: EventEmitter<Task> = new EventEmitter<Task>();
   @Output() editEvent: EventEmitter<Task> = new EventEmitter<Task>();
   @Output() deleteEvent: EventEmitter<Task> = new EventEmitter<Task>();
+  @Output() selectTask: EventEmitter<Task[]> = new EventEmitter<Task[]>();
+
   dataSource = new MatTableDataSource<any>();
 
   readonly moment = moment;
   displayedColumns: string[] = ['Select', 'id', 'title', 'isDone', 'createdAt', 'doneAt', 'actions'];
-  SelectedTask: Task[] = [];
+  selectedTask: Task[] = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
 
@@ -42,7 +44,10 @@ export class ListTaskComponent implements OnInit,AfterViewInit {
     }
 
     onChange(checked: boolean, task: Task){
-      console.log(task);
+     if (checked) this.selectedTask.push(task);
+     else (this.selectedTask.splice(this.selectedTask.indexOf(task)));
+      console.log(this.selectedTask);
+      this.selectTask.emit(this.selectedTask);
     }
 
 

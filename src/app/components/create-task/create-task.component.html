@@ -3,7 +3,10 @@
     <mat-card-title style="text-align: center">My tasks</mat-card-title>
     <mat-card-content class="left" style="padding-left: 11rem">
       <section class="inputs">
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <button mat-icon-button 
+        *ngIf="selectedTask.length > 0"
+        [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu"
+        >
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
@@ -11,7 +14,7 @@
             <mat-icon>done</mat-icon>
             <span>Done</span>
           </button>
-          <button mat-menu-item disabled>
+          <button mat-menu-item>
             <mat-icon>delete</mat-icon>
             <span>Delete</span>
           </button>

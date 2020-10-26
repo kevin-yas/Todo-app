@@ -10,6 +10,7 @@ import {TodoService} from '../../services/todo.service';
 export class HomeComponent implements OnInit {
   allTask: Array<Task> = [];
   editMe: Task;
+  selectedTaskIn: Task[] = [];
   
 
 
@@ -73,6 +74,11 @@ export class HomeComponent implements OnInit {
     taskFound.title = editedTask.title;
     taskFound.description = editedTask.description;
     this.todoService.editTask(editedTask).subscribe();
+  }
+
+  onEvent(event){
+    this.selectedTaskIn = event;
+    console.log("e :" , this.selectedTaskIn);
   }
 
 }
