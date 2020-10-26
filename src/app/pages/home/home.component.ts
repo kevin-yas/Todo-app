@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Task} from '../../models/Task';
 import {TodoService} from '../../services/todo.service';
 
@@ -10,6 +10,8 @@ import {TodoService} from '../../services/todo.service';
 export class HomeComponent implements OnInit {
   allTask: Array<Task> = [];
   editMe: Task;
+  
+
 
   constructor(private todoService: TodoService) {
   }
@@ -18,21 +20,26 @@ export class HomeComponent implements OnInit {
     // Recuperation des tasks depuis la base de donnee
     // Mettre les donnees dans allTask
     this.todoService.getTasks().subscribe(
-      response => {
-        console.log(response);
-        this.allTask = response;
+      r => {
+        this.allTask = r.reverse();
+        console.log(r);
       },
       error => {
         console.log('Get all tasks error: ', error);
       });
+    
   }
 
   onAdd(newTask: Task): void {
     this.todoService.addTask(newTask).subscribe(
       response => {
         console.log(response);
-        this.allTask.push({...newTask, id: response.id, createdAt: new Date()});
+        this.allTask.push({...newTask, id: this.allTask.length + 1, createdAt: new Date()});
         this.allTask = this.allTask.filter(x => true);
+        newTask = {...Task.EMPTY_MODEL};
+      },
+      error => {
+        console.log('Erreur: ' + error);
       }
     );
   }

@@ -12,7 +12,7 @@ export class Task {
   static readonly EMPTY_MODEL = {
     id: null,
     title: '',
-    description: '',
+    description: null,
     createdAt: null,
     isDone: false,
     doneAt: null,

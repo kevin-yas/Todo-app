@@ -1,28 +1,53 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild,AfterViewInit} from '@angular/core';
 import {Task} from '../../models/Task';
 import {MatDialog} from '@angular/material/dialog';
 import {DetailsTaskComponent} from '../../dialog/details-task/details-task.component';
 import * as moment from 'moment';
 import {AlertRemoveComponent} from '../../dialog/alert-remove/alert-remove.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+
+
+
+
 
 @ Component({
   selector: 'app-list-task',
   templateUrl: './list-task.component.html',
   styleUrls: ['./list-task.component.css']
 })
-export class ListTaskComponent implements OnInit {
+export class ListTaskComponent implements OnInit,AfterViewInit {
+    
+
   @Input() tasks: Task[] = [];
   @Output() doneEvent: EventEmitter<Task> = new EventEmitter<Task>();
   @Output() editEvent: EventEmitter<Task> = new EventEmitter<Task>();
   @Output() deleteEvent: EventEmitter<Task> = new EventEmitter<Task>();
+  dataSource = new MatTableDataSource<any>();
+
   readonly moment = moment;
-  displayedColumns: string[] = ['id', 'title', 'isDone', 'createdAt', 'doneAt', 'actions'];
+  displayedColumns: string[] = ['selection', 'id', 'title', 'isDone', 'createdAt', 'doneAt', 'actions'];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(public dialog: MatDialog) {
-  }
 
-  ngOnInit(): void {
-  }
+    constructor(public dialog: MatDialog) {
+    }
+
+    ngOnInit(): void {
+      this.dataSource.data = this.tasks;
+    }
+
+    ngAfterViewInit() {
+      this.dataSource.paginator = this.paginator;
+    }
+
+    //Séléction
+    checked(){
+      return true;
+    };
+    indeterminate = false;
+    labelPosition: 'before' | 'after' = 'after';
+    disabled = false;
 
   done(task: Task) {
     if (task.isDone) { return; }
