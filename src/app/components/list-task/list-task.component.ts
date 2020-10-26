@@ -10,7 +10,6 @@ import { MatPaginator } from '@angular/material/paginator';
 
 
 
-
 @ Component({
   selector: 'app-list-task',
   templateUrl: './list-task.component.html',
@@ -26,7 +25,8 @@ export class ListTaskComponent implements OnInit,AfterViewInit {
   dataSource = new MatTableDataSource<any>();
 
   readonly moment = moment;
-  displayedColumns: string[] = ['selection', 'id', 'title', 'isDone', 'createdAt', 'doneAt', 'actions'];
+  displayedColumns: string[] = ['Select', 'id', 'title', 'isDone', 'createdAt', 'doneAt', 'actions'];
+  SelectedTask: Task[] = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
 
@@ -41,13 +41,10 @@ export class ListTaskComponent implements OnInit,AfterViewInit {
       this.dataSource.paginator = this.paginator;
     }
 
-    //Séléction
-    checked(){
-      return true;
-    };
-    indeterminate = false;
-    labelPosition: 'before' | 'after' = 'after';
-    disabled = false;
+    onChange(checked: boolean, task: Task){
+      console.log(task);
+    }
+
 
   done(task: Task) {
     if (task.isDone) { return; }

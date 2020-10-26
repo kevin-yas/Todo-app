@@ -20,16 +20,10 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatMenuModule} from "@angular/material/menu";
 import { AlertRemoveComponent } from './dialog/alert-remove/alert-remove.component';
-<<<<<<< HEAD
 import {HttpClientModule} from '@angular/common/http';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 
-
- 
-=======
-import {MatPaginatorModule} from '@angular/material/paginator';
->>>>>>> a7b8ca5ecedbe59306c6bb4bd0d85ea9fa89160e
 
 @NgModule({
   declarations: [
@@ -49,19 +43,17 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
+    HttpClientModule,
     MatInputModule,
     MatCardModule,
     MatTableModule,
     MatDialogModule,
     MatTooltipModule,
-<<<<<<< HEAD
     MatPaginatorModule,
     MatMenuModule,
-    MatCheckboxModule
-=======
+    MatCheckboxModule,
     MatMenuModule,
-    MatPaginatorModule
->>>>>>> a7b8ca5ecedbe59306c6bb4bd0d85ea9fa89160e
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
