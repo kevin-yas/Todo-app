@@ -2,6 +2,7 @@
 (editEvent)="handleEdit($event)" 
 [toEdit]="editMe"
 [selectedTask]="selectedTaskIn"
+(deleteEvent)="onDeleteAll($event.id)"
 ></app-create-task>
 <app-list-task
 *ngIf="allTask.length"

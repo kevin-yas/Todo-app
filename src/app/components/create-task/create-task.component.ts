@@ -15,9 +15,12 @@ export class CreateTaskComponent implements OnInit {
   @Output() addEvent: EventEmitter<Task> = new EventEmitter<Task>();
   @Output() editEvent: EventEmitter<Task> = new EventEmitter<Task>();
   @Output() deleteEvent: EventEmitter<Task> = new EventEmitter<Task>();
+  
 
   @Input() toEdit: Task;
-  @Input() selectedTask: Task;
+  @Input() selectedTask: Task[];
+   
+
   constructor(public dialog: MatDialog) {
   }
 
@@ -36,4 +39,9 @@ export class CreateTaskComponent implements OnInit {
     this.formTask = {...Task.EMPTY_MODEL};
   }
 
-}
+  removeAll(){
+   
+    }
+  }
+
+

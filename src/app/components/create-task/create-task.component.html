@@ -5,8 +5,7 @@
       <section class="inputs">
         <button mat-icon-button 
         *ngIf="selectedTask.length > 0"
-        [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu"
-        >
+        [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
@@ -14,7 +13,7 @@
             <mat-icon>done</mat-icon>
             <span>Done</span>
           </button>
-          <button mat-menu-item>
+          <button mat-menu-item (click)="removeAll()">
             <mat-icon>delete</mat-icon>
             <span>Delete</span>
           </button>

@@ -78,7 +78,16 @@ export class HomeComponent implements OnInit {
 
   onEvent(event){
     this.selectedTaskIn = event;
-    console.log("e :" , this.selectedTaskIn);
+    console.log("Evenet :", event);
+  }
+
+  onDeleteAll(id:number): void{
+    this.todoService.removeTask(id).subscribe(
+      reponse => {
+        console.log(reponse);
+        this.allTask = this.allTask.filter(task => task.id !== id);
+      }
+    );
   }
 
 }

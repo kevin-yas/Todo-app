@@ -6,6 +6,8 @@ import * as moment from 'moment';
 import {AlertRemoveComponent} from '../../dialog/alert-remove/alert-remove.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import {SelectionModel} from '@angular/cdk/collections';
+
 
 
 
@@ -24,11 +26,11 @@ export class ListTaskComponent implements OnInit,AfterViewInit {
   @Output() deleteEvent: EventEmitter<Task> = new EventEmitter<Task>();
   @Output() selectTask: EventEmitter<Task[]> = new EventEmitter<Task[]>();
 
-  dataSource = new MatTableDataSource<any>();
+  dataSource = new MatTableDataSource<Task>();
 
   readonly moment = moment;
-  displayedColumns: string[] = ['Select', 'id', 'title', 'isDone', 'createdAt', 'doneAt', 'actions'];
-  selectedTask: Task[] = [];
+  displayedColumns: string[] = ['select', 'id', 'title', 'isDone', 'createdAt', 'doneAt', 'actions'];
+  selection = new SelectionModel<Task>(true, []);
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
 
@@ -38,18 +40,41 @@ export class ListTaskComponent implements OnInit,AfterViewInit {
     ngOnInit(): void {
       this.dataSource.data = this.tasks;
     }
-
     ngAfterViewInit() {
       this.dataSource.paginator = this.paginator;
     }
 
-    onChange(checked: boolean, task: Task){
-     if (checked) this.selectedTask.push(task);
-     else (this.selectedTask.splice(this.selectedTask.indexOf(task)));
-      console.log(this.selectedTask);
-      this.selectTask.emit(this.selectedTask);
-    }
 
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected(): boolean {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+        this.selection.clear() :
+        this.dataSource.data.forEach(row => this.selection.select(row));
+    console.log(this.selection.selected);
+    this.selectTask.emit(this.selection.selected);
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(task?: Task): string {
+    if (!task) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(task) ? 'deselect' : 'select'} row ${task.id + 1}`;
+  }
+
+  toggleRow(task: Task): void{
+    this.selection.toggle(task);
+    console.log(this.selection.selected);
+    this.selectTask.emit(this.selection.selected);
+  }
 
   done(task: Task) {
     if (task.isDone) { return; }
