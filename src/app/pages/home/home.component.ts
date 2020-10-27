@@ -8,6 +8,8 @@ import {TodoService} from '../../services/todo.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  msg: string;
+	clss: string;
   allTask: Array<Task> = [];
   editMe: Task;
   selectedTaskIn: Task[] = [];
@@ -20,6 +22,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     // Recuperation des tasks depuis la base de donnee
     // Mettre les donnees dans allTask
+    //Eto no azo ilay donnée
     this.todoService.getTasks().subscribe(
       r => {
         this.allTask = r.reverse();
@@ -30,6 +33,7 @@ export class HomeComponent implements OnInit {
       });
     
   }
+  
 
   onAdd(newTask: Task): void {
     this.todoService.addTask(newTask).subscribe(
@@ -62,12 +66,14 @@ export class HomeComponent implements OnInit {
   }
 
   onDelete(id: number): void {
+    console.log("kjf",id);
     this.todoService.removeTask(id).subscribe(
       response => {
         this.allTask = this.allTask.filter(task => task.id !== id);
       }
     );
   }
+  
 
   handleEdit(editedTask: Task): void {
     const taskFound = this.allTask.find(task => task.id === editedTask.id);
@@ -82,12 +88,24 @@ export class HomeComponent implements OnInit {
   }
 
   onDeleteAll(id:number): void{
-    this.todoService.removeTask(id).subscribe(
-      reponse => {
-        console.log(reponse);
+   //parcourire tableau pour trouver : id this.selectedTaskIn.forEach(task => console.log(task.id));
+    this.selectedTaskIn.forEach(task => this.todoService.removeTask(task.id).subscribe(
+      response => {
         this.allTask = this.allTask.filter(task => task.id !== id);
       }
-    );
+    ));
+  
   }
+
+  onDoneAll(selectedTaskIn: Task): void{
+    console.log("done:",this.selectedTaskIn);
+    this.selectedTaskIn.forEach(task => this.todoService.doneTask(task.id).subscribe(
+      response => {
+        task.isDone = true;
+        task.doneAt = new Date();
+      }
+    ));
+  }
+  
 
 }

@@ -14,11 +14,13 @@ export class CreateTaskComponent implements OnInit {
   formTask = {...Task.EMPTY_MODEL};
   @Output() addEvent: EventEmitter<Task> = new EventEmitter<Task>();
   @Output() editEvent: EventEmitter<Task> = new EventEmitter<Task>();
-  @Output() deleteEvent: EventEmitter<Task> = new EventEmitter<Task>();
+  @Output() deleteEvent: EventEmitter<Task[]> = new EventEmitter<Task[]>();
+  @Output() doneEvent: EventEmitter<Task[]> =  new EventEmitter<Task[]>();
   
 
   @Input() toEdit: Task;
   @Input() selectedTask: Task[];
+  isDone: boolean = true;
    
 
   constructor(public dialog: MatDialog) {
@@ -26,8 +28,6 @@ export class CreateTaskComponent implements OnInit {
 
   ngOnInit(): void {
   }
- 
-
 
   addHandler() {
     if (this.toEdit) {
@@ -39,9 +39,26 @@ export class CreateTaskComponent implements OnInit {
     this.formTask = {...Task.EMPTY_MODEL};
   }
 
-  removeAll(){
-   
-    }
+  removeAll():void{
+    const sub = this.dialog.open(AlertRemoveAllComponent, {data: this.selectedTask})
+      .afterClosed().subscribe(confirm => {
+        if (confirm) {
+          this.deleteEvent.emit(this.selectedTask);
+        }
+      }).add(() => sub.unsubscribe());// unsubscribe
   }
 
+  doneAll(): void{
 
+    this.selectedTask.forEach(task => {
+      if (task.isDone)
+    { 
+      return; 
+      this.isDone = true;}
+    else
+    {this.doneEvent.emit(this.selectedTask);
+      this.isDone = false;
+    }
+    });
+   }
+  }

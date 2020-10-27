@@ -15,32 +15,32 @@ export class TodoService {
 
   constructor(private http: HttpClient) { }
 
-  getTasks(): Observable<any>{
-    return this.http.get(`${BASE_URL}/all`);
+  getTasks(): Observable<Task[]>{
+    return this.http.get<Task[]>(`${BASE_URL}/all`);
   }
 
-  getTaskById(id: number): Observable<any>{
-    return this.http.get(`${BASE_URL}/show/${id}`);
+  getTaskById(id: number): Observable<Task[]>{
+    return this.http.get<Task[]>(`${BASE_URL}/show/${id}`);
   }
 
-  addTask(task: Task): Observable<any> {
-    return this.http.post(`${BASE_URL}/new`, task);
+  addTask(task: Task): Observable<Task[]> {
+    return this.http.post<Task[]>(`${BASE_URL}/new`, task);
   }
 
-  doneTask(id: number): Observable<any> {
-    return this.http.put(`${BASE_URL}/done/${id}`, null);
+  doneTask(id: number): Observable<Task[]> {
+    return this.http.put<Task[]>(`${BASE_URL}/done/${id}`, null);
   }
 
-  editTask(newTask: Task): Observable<any>{
-    return this.http.put(`${BASE_URL}/update/${newTask.id}`, newTask);
+  editTask(newTask: Task): Observable<Task[]>{
+    return this.http.put<Task[]>(`${BASE_URL}/update/${newTask.id}`, newTask);
   }
 
-  removeTask(id: number): Observable<any> {
-    return this.http.delete(`${BASE_URL}/delete/${id}`);
+  removeTask(id: number): Observable<Task[]> {
+    return this.http.delete<Task[]>(`${BASE_URL}/delete/${id}`);
   }
 
-  removeAll(): Observable<any> {
-    return this.http.delete(BASE_URL);
+  doneAll(): Observable<Task[]> {
+    return this.http.delete<Task[]>(`${BASE_URL}/doneAll`);
   }
 
 }
